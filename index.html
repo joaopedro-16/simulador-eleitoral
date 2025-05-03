@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,16 +11,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        
+
         body {
             font-family: 'Inter', sans-serif;
         }
-        
+
         .tooltip {
             position: relative;
             display: inline-block;
         }
-        
+
         .tooltip .tooltiptext {
             visibility: hidden;
             width: 280px;
@@ -38,40 +39,46 @@
             font-size: 14px;
             font-weight: normal;
         }
-        
+
         .tooltip:hover .tooltiptext {
             visibility: visible;
             opacity: 1;
         }
-        
+
         .tab-content {
             display: none;
         }
-        
+
         .tab-content.active {
             display: block;
             animation: fadeIn 0.5s;
         }
-        
+
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
-        
+
         .progress-bar {
             transition: width 0.5s ease-in-out;
         }
-        
+
         .candidate-item {
             transition: all 0.3s ease;
         }
-        
+
         .candidate-item:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
+
 <body class="bg-gray-50 min-h-screen">
     <div class="container mx-auto px-4 py-8 max-w-6xl">
         <!-- Header -->
@@ -82,10 +89,12 @@
                     <p class="text-teal-100">Ferramenta para previsão de desempenho partidário</p>
                 </div>
                 <div class="flex space-x-4">
-                    <button id="exportBtn" class="bg-white text-teal-700 hover:bg-gray-100 px-4 py-2 rounded-lg font-medium flex items-center">
+                    <button id="exportBtn"
+                        class="bg-white text-teal-700 hover:bg-gray-100 px-4 py-2 rounded-lg font-medium flex items-center">
                         <i class="fas fa-file-pdf mr-2"></i> Exportar PDF
                     </button>
-                    <button id="resetBtn" class="bg-teal-800 hover:bg-teal-900 text-white px-4 py-2 rounded-lg font-medium flex items-center">
+                    <button id="resetBtn"
+                        class="bg-teal-800 hover:bg-teal-900 text-white px-4 py-2 rounded-lg font-medium flex items-center">
                         <i class="fas fa-redo mr-2"></i> Reiniciar
                     </button>
                 </div>
@@ -96,7 +105,8 @@
         <main class="bg-white rounded-xl shadow-lg overflow-hidden">
             <!-- Tabs Navigation -->
             <div class="flex border-b border-gray-200">
-                <button class="tab-btn active py-4 px-6 font-medium text-teal-700 border-b-2 border-teal-700" data-tab="estadual">
+                <button class="tab-btn active py-4 px-6 font-medium text-teal-700 border-b-2 border-teal-700"
+                    data-tab="estadual">
                     Deputado Estadual
                 </button>
                 <button class="tab-btn py-4 px-6 font-medium text-gray-500 hover:text-teal-700" data-tab="federal">
@@ -116,7 +126,8 @@
                                 <div id="estadualCandidates" class="space-y-3">
                                     <!-- Candidate items will be added here -->
                                 </div>
-                                <button id="addEstadualBtn" class="mt-4 bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-lg font-medium flex items-center">
+                                <button id="addEstadualBtn"
+                                    class="mt-4 bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-lg font-medium flex items-center">
                                     <i class="fas fa-plus mr-2"></i> Adicionar Candidato
                                 </button>
                             </div>
@@ -129,11 +140,16 @@
                                 <h3 class="text-lg font-medium text-gray-800 mb-3 flex items-center">
                                     Quociente Eleitoral (QE)
                                     <div class="tooltip ml-2">
-                                        <i class="fas fa-info-circle text-gray-500 hover:text-teal-700 cursor-pointer"></i>
-                                        <span class="tooltiptext">Número mínimo de votos que um partido/coligação precisa alcançar para ter direito a uma vaga na distribuição das cadeiras.</span>
+                                        <i
+                                            class="fas fa-info-circle text-gray-500 hover:text-teal-700 cursor-pointer"></i>
+                                        <span class="tooltiptext">Número mínimo de votos que um partido/coligação
+                                            precisa alcançar para ter direito a uma vaga na distribuição das
+                                            cadeiras.</span>
                                     </div>
                                 </h3>
-                                <input type="number" id="qeEstadual" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500" value="50000">
+                                <input type="number" id="qeEstadual"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+                                    value="50000">
                             </div>
 
                             <!-- Party Votes -->
@@ -145,27 +161,32 @@
                             <!-- Results -->
                             <div class="bg-teal-50 p-4 rounded-lg border border-teal-200">
                                 <h3 class="text-lg font-medium text-teal-800 mb-3">Resultado Estimado</h3>
-                                
+
                                 <div class="mb-4">
                                     <div class="flex justify-between mb-1">
                                         <span class="text-sm font-medium text-teal-700">Cadeiras Diretas</span>
-                                        <span class="text-sm font-medium text-teal-700" id="directSeatsEstadual">0</span>
+                                        <span class="text-sm font-medium text-teal-700"
+                                            id="directSeatsEstadual">0</span>
                                     </div>
                                     <div class="w-full bg-gray-200 rounded-full h-2.5">
-                                        <div id="directSeatsBarEstadual" class="bg-teal-600 h-2.5 rounded-full" style="width: 0%"></div>
+                                        <div id="directSeatsBarEstadual" class="bg-teal-600 h-2.5 rounded-full"
+                                            style="width: 0%"></div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="mb-4">
                                     <div class="flex justify-between mb-1">
-                                        <span class="text-sm font-medium text-teal-700">Potenciais Cadeiras nas Sobras</span>
-                                        <span class="text-sm font-medium text-teal-700" id="remainderSeatsEstadual">0</span>
+                                        <span class="text-sm font-medium text-teal-700">Potenciais Cadeiras nas
+                                            Sobras</span>
+                                        <span class="text-sm font-medium text-teal-700"
+                                            id="remainderSeatsEstadual">0</span>
                                     </div>
                                     <div class="w-full bg-gray-200 rounded-full h-2.5">
-                                        <div id="remainderSeatsBarEstadual" class="bg-teal-400 h-2.5 rounded-full" style="width: 0%"></div>
+                                        <div id="remainderSeatsBarEstadual" class="bg-teal-400 h-2.5 rounded-full"
+                                            style="width: 0%"></div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="bg-white p-3 rounded-lg border border-teal-100">
                                     <div class="flex justify-between items-center">
                                         <span class="font-medium">Total de Cadeiras:</span>
@@ -187,7 +208,8 @@
                                 <div id="federalCandidates" class="space-y-3">
                                     <!-- Candidate items will be added here -->
                                 </div>
-                                <button id="addFederalBtn" class="mt-4 bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-lg font-medium flex items-center">
+                                <button id="addFederalBtn"
+                                    class="mt-4 bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-lg font-medium flex items-center">
                                     <i class="fas fa-plus mr-2"></i> Adicionar Candidato
                                 </button>
                             </div>
@@ -200,11 +222,16 @@
                                 <h3 class="text-lg font-medium text-gray-800 mb-3 flex items-center">
                                     Quociente Eleitoral (QE)
                                     <div class="tooltip ml-2">
-                                        <i class="fas fa-info-circle text-gray-500 hover:text-teal-700 cursor-pointer"></i>
-                                        <span class="tooltiptext">Número mínimo de votos que um partido/coligação precisa alcançar para ter direito a uma vaga na distribuição das cadeiras.</span>
+                                        <i
+                                            class="fas fa-info-circle text-gray-500 hover:text-teal-700 cursor-pointer"></i>
+                                        <span class="tooltiptext">Número mínimo de votos que um partido/coligação
+                                            precisa alcançar para ter direito a uma vaga na distribuição das
+                                            cadeiras.</span>
                                     </div>
                                 </h3>
-                                <input type="number" id="qeFederal" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500" value="300000">
+                                <input type="number" id="qeFederal"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+                                    value="300000">
                             </div>
 
                             <!-- Party Votes -->
@@ -216,27 +243,31 @@
                             <!-- Results -->
                             <div class="bg-teal-50 p-4 rounded-lg border border-teal-200">
                                 <h3 class="text-lg font-medium text-teal-800 mb-3">Resultado Estimado</h3>
-                                
+
                                 <div class="mb-4">
                                     <div class="flex justify-between mb-1">
                                         <span class="text-sm font-medium text-teal-700">Cadeiras Diretas</span>
                                         <span class="text-sm font-medium text-teal-700" id="directSeatsFederal">0</span>
                                     </div>
                                     <div class="w-full bg-gray-200 rounded-full h-2.5">
-                                        <div id="directSeatsBarFederal" class="bg-teal-600 h-2.5 rounded-full" style="width: 0%"></div>
+                                        <div id="directSeatsBarFederal" class="bg-teal-600 h-2.5 rounded-full"
+                                            style="width: 0%"></div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="mb-4">
                                     <div class="flex justify-between mb-1">
-                                        <span class="text-sm font-medium text-teal-700">Potenciais Cadeiras nas Sobras</span>
-                                        <span class="text-sm font-medium text-teal-700" id="remainderSeatsFederal">0</span>
+                                        <span class="text-sm font-medium text-teal-700">Potenciais Cadeiras nas
+                                            Sobras</span>
+                                        <span class="text-sm font-medium text-teal-700"
+                                            id="remainderSeatsFederal">0</span>
                                     </div>
                                     <div class="w-full bg-gray-200 rounded-full h-2.5">
-                                        <div id="remainderSeatsBarFederal" class="bg-teal-400 h-2.5 rounded-full" style="width: 0%"></div>
+                                        <div id="remainderSeatsBarFederal" class="bg-teal-400 h-2.5 rounded-full"
+                                            style="width: 0%"></div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="bg-white p-3 rounded-lg border border-teal-100">
                                     <div class="flex justify-between items-center">
                                         <span class="font-medium">Total de Cadeiras:</span>
@@ -259,7 +290,7 @@
 
     <script>
         // Initialize the app when DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Tab functionality
             const tabButtons = document.querySelectorAll('.tab-btn');
             tabButtons.forEach(button => {
@@ -268,37 +299,37 @@
                     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active', 'border-teal-700', 'text-teal-700'));
                     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.add('text-gray-500'));
                     document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-                    
+
                     // Add active class to clicked button and corresponding content
                     button.classList.add('active', 'border-teal-700', 'text-teal-700');
                     button.classList.remove('text-gray-500');
                     const tabId = button.getAttribute('data-tab');
                     document.getElementById(tabId).classList.add('active');
-                    
+
                     // Save active tab to localStorage
                     localStorage.setItem('activeTab', tabId);
                 });
             });
-            
+
             // Restore active tab from localStorage
             const savedTab = localStorage.getItem('activeTab');
             if (savedTab) {
                 document.querySelector(`.tab-btn[data-tab="${savedTab}"]`).click();
             }
-            
+
             // Candidate management
             const addEstadualBtn = document.getElementById('addEstadualBtn');
             const addFederalBtn = document.getElementById('addFederalBtn');
             const estadualCandidates = document.getElementById('estadualCandidates');
             const federalCandidates = document.getElementById('federalCandidates');
-            
+
             // Function to create a new candidate item
             function createCandidateItem(container, type, candidate = { name: '', votes: '' }) {
                 const candidateId = Date.now() + Math.floor(Math.random() * 1000);
                 const candidateItem = document.createElement('div');
                 candidateItem.className = 'candidate-item bg-white p-3 rounded-lg border border-gray-200 flex items-center space-x-3';
                 candidateItem.dataset.id = candidateId;
-                
+
                 candidateItem.innerHTML = `
                     <div class="flex-grow">
                         <input type="text" class="candidate-name w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500" placeholder="Nome do candidato" value="${candidate.name}">
@@ -310,14 +341,14 @@
                         <i class="fas fa-times"></i>
                     </button>
                 `;
-                
+
                 container.appendChild(candidateItem);
-                
+
                 // Add event listeners to the new candidate item
                 const nameInput = candidateItem.querySelector('.candidate-name');
                 const votesInput = candidateItem.querySelector('.candidate-votes');
                 const removeBtn = candidateItem.querySelector('.remove-candidate');
-                
+
                 nameInput.addEventListener('input', () => updateCalculations(type));
                 votesInput.addEventListener('input', () => updateCalculations(type));
                 removeBtn.addEventListener('click', () => {
@@ -325,35 +356,35 @@
                     updateCalculations(type);
                     saveCandidatesToLocalStorage();
                 });
-                
+
                 return candidateId;
             }
-            
+
             // Add candidate buttons
             addEstadualBtn.addEventListener('click', () => {
                 createCandidateItem(estadualCandidates, 'estadual');
                 saveCandidatesToLocalStorage();
             });
-            
+
             addFederalBtn.addEventListener('click', () => {
                 createCandidateItem(federalCandidates, 'federal');
                 saveCandidatesToLocalStorage();
             });
-            
+
             // QE inputs
             const qeEstadual = document.getElementById('qeEstadual');
             const qeFederal = document.getElementById('qeFederal');
-            
+
             qeEstadual.addEventListener('input', () => {
                 updateCalculations('estadual');
                 saveCandidatesToLocalStorage();
             });
-            
+
             qeFederal.addEventListener('input', () => {
                 updateCalculations('federal');
                 saveCandidatesToLocalStorage();
             });
-            
+
             // Reset button
             const resetBtn = document.getElementById('resetBtn');
             resetBtn.addEventListener('click', () => {
@@ -362,61 +393,61 @@
                     location.reload();
                 }
             });
-            
+
             // Export to PDF button
             const exportBtn = document.getElementById('exportBtn');
             exportBtn.addEventListener('click', generatePDF);
-            
+
             // Function to update all calculations
             function updateCalculations(type) {
                 const container = type === 'estadual' ? estadualCandidates : federalCandidates;
                 const qe = type === 'estadual' ? parseInt(qeEstadual.value) || 0 : parseInt(qeFederal.value) || 0;
-                
+
                 // Calculate total votes
                 let totalVotes = 0;
                 const candidateItems = container.querySelectorAll('.candidate-item');
-                
+
                 candidateItems.forEach(item => {
                     const votesInput = item.querySelector('.candidate-votes');
                     const votes = parseInt(votesInput.value) || 0;
                     totalVotes += votes;
                 });
-                
+
                 // Update total votes display
                 document.getElementById(`totalVotes${type.charAt(0).toUpperCase() + type.slice(1)}`).textContent = totalVotes.toLocaleString('pt-BR');
-                
+
                 // Calculate direct seats (integer division)
                 const directSeats = Math.floor(totalVotes / qe);
-                
+
                 // Calculate remainder seats (new STF rules)
                 let remainderSeats = 0;
                 if (qe > 0) {
                     const remainder = totalVotes % qe;
                     const qp = Math.floor(totalVotes / qe); // Quociente Partidário
-                    
+
                     // Check if remainder is at least 80% of QE and 20% of QP
                     if (remainder >= 0.8 * qe && remainder >= 0.2 * qp) {
                         remainderSeats = 1;
                     }
                 }
-                
+
                 // Update seats displays
                 document.getElementById(`directSeats${type.charAt(0).toUpperCase() + type.slice(1)}`).textContent = directSeats;
                 document.getElementById(`remainderSeats${type.charAt(0).toUpperCase() + type.slice(1)}`).textContent = remainderSeats;
                 document.getElementById(`totalSeats${type.charAt(0).toUpperCase() + type.slice(1)}`).textContent = directSeats + remainderSeats;
-                
+
                 // Update progress bars (using arbitrary max for visualization)
                 const maxSeats = 10; // Just for visualization purposes
                 const directPercentage = Math.min(100, (directSeats / maxSeats) * 100);
                 const remainderPercentage = Math.min(100, (remainderSeats / maxSeats) * 100);
-                
+
                 document.getElementById(`directSeatsBar${type.charAt(0).toUpperCase() + type.slice(1)}`).style.width = `${directPercentage}%`;
                 document.getElementById(`remainderSeatsBar${type.charAt(0).toUpperCase() + type.slice(1)}`).style.width = `${remainderPercentage}%`;
-                
+
                 // Save to localStorage
                 saveCandidatesToLocalStorage();
             }
-            
+
             // Function to save all candidates to localStorage
             function saveCandidatesToLocalStorage() {
                 const candidatesData = {
@@ -429,7 +460,7 @@
                         candidates: []
                     }
                 };
-                
+
                 // Save estadual candidates
                 const estadualItems = estadualCandidates.querySelectorAll('.candidate-item');
                 estadualItems.forEach(item => {
@@ -437,7 +468,7 @@
                     const votes = item.querySelector('.candidate-votes').value;
                     candidatesData.estadual.candidates.push({ name, votes });
                 });
-                
+
                 // Save federal candidates
                 const federalItems = federalCandidates.querySelectorAll('.candidate-item');
                 federalItems.forEach(item => {
@@ -445,28 +476,28 @@
                     const votes = item.querySelector('.candidate-votes').value;
                     candidatesData.federal.candidates.push({ name, votes });
                 });
-                
+
                 localStorage.setItem('candidatesData', JSON.stringify(candidatesData));
             }
-            
+
             // Function to load candidates from localStorage
             function loadCandidatesFromLocalStorage() {
                 const savedData = localStorage.getItem('candidatesData');
                 if (savedData) {
                     const candidatesData = JSON.parse(savedData);
-                    
+
                     // Load estadual candidates
                     qeEstadual.value = candidatesData.estadual.qe || 50000;
                     candidatesData.estadual.candidates.forEach(candidate => {
                         createCandidateItem(estadualCandidates, 'estadual', candidate);
                     });
-                    
+
                     // Load federal candidates
                     qeFederal.value = candidatesData.federal.qe || 300000;
                     candidatesData.federal.candidates.forEach(candidate => {
                         createCandidateItem(federalCandidates, 'federal', candidate);
                     });
-                    
+
                     // Update calculations
                     updateCalculations('estadual');
                     updateCalculations('federal');
@@ -476,94 +507,94 @@
                     createCandidateItem(federalCandidates, 'federal');
                 }
             }
-            
+
             // Function to generate PDF
             function generatePDF() {
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
                 const activeTab = document.querySelector('.tab-content.active').id;
                 const type = activeTab === 'estadual' ? 'Deputado Estadual' : 'Deputado Federal';
-                
+
                 // Add title
                 doc.setFontSize(18);
                 doc.setTextColor(0, 105, 92); // Teal color
                 doc.text(`Relatório de Simulação - ${type}`, 105, 20, { align: 'center' });
-                
+
                 // Add date
                 doc.setFontSize(10);
                 doc.setTextColor(100);
                 doc.text(`Gerado em: ${new Date().toLocaleDateString()}`, 105, 30, { align: 'center' });
-                
+
                 // Add candidate table
                 doc.setFontSize(12);
                 doc.setTextColor(0);
                 doc.text('Candidatos e Projeção de Votos:', 14, 40);
-                
+
                 const container = activeTab === 'estadual' ? estadualCandidates : federalCandidates;
                 const candidateItems = container.querySelectorAll('.candidate-item');
-                
+
                 let y = 50;
                 doc.setFontSize(10);
-                
+
                 // Table header
                 doc.setFillColor(0, 105, 92);
                 doc.setTextColor(255);
                 doc.rect(14, y, 170, 8, 'F');
                 doc.text('Nome do Candidato', 20, y + 6);
                 doc.text('Votos Projetados', 140, y + 6, { align: 'right' });
-                
+
                 y += 8;
                 doc.setTextColor(0);
-                
+
                 // Table rows
                 candidateItems.forEach((item, index) => {
                     if (y > 250) {
                         doc.addPage();
                         y = 20;
                     }
-                    
+
                     const name = item.querySelector('.candidate-name').value || '(Sem nome)';
                     const votes = item.querySelector('.candidate-votes').value || '0';
-                    
+
                     // Alternate row colors
                     if (index % 2 === 0) {
                         doc.setFillColor(240, 244, 244);
                         doc.rect(14, y, 170, 8, 'F');
                     }
-                    
+
                     doc.text(name.substring(0, 50), 20, y + 6);
                     doc.text(parseInt(votes).toLocaleString('pt-BR'), 140, y + 6, { align: 'right' });
-                    
+
                     y += 8;
                 });
-                
+
                 // Add summary
                 y += 10;
                 if (y > 250) {
                     doc.addPage();
                     y = 20;
                 }
-                
+
                 doc.setFontSize(12);
                 doc.text('Resumo da Projeção:', 14, y);
                 y += 8;
-                
+
                 doc.setFontSize(10);
                 const qe = activeTab === 'estadual' ? parseInt(qeEstadual.value) : parseInt(qeFederal.value);
-                const totalVotes = activeTab === 'estadual' ? 
-                    parseInt(document.getElementById('totalVotesEstadual').textContent.replace(/\D/g, '')) || 0 : 
+                const totalVotes = activeTab === 'estadual' ?
+                    parseInt(document.getElementById('totalVotesEstadual').textContent.replace(/\D/g, '')) || 0 :
                     parseInt(document.getElementById('totalVotesFederal').textContent.replace(/\D/g, '')) || 0;
-                
-                const directSeats = activeTab === 'estadual' ? 
-                    parseInt(document.getElementById('directSeatsEstadual').textContent) || 0 : 
+
+                const directSeats = activeTab === 'estadual' ?
+                    parseInt(document.getElementById('directSeatsEstadual').textContent) || 0 :
                     parseInt(document.getElementById('directSeatsFederal').textContent) || 0;
-                
-                const remainderSeats = activeTab === 'estadual' ? 
-                    parseInt(document.getElementById('remainderSeatsEstadual').textContent) || 0 : 
+
+                const remainderSeats = activeTab === 'estadual' ?
+                    parseInt(document.getElementById('remainderSeatsEstadual').textContent) || 0 :
                     parseInt(document.getElementById('remainderSeatsFederal').textContent) || 0;
-                
+
                 const totalSeats = directSeats + remainderSeats;
-                
+
                 doc.text(`Quociente Eleitoral (QE): ${qe.toLocaleString('pt-BR')}`, 20, y + 6);
                 y += 8;
                 doc.text(`Votos Totais do Partido: ${totalVotes.toLocaleString('pt-BR')}`, 20, y + 6);
@@ -574,23 +605,24 @@
                 y += 8;
                 doc.setFontSize(12);
                 doc.text(`Total de Cadeiras Estimadas: ${totalSeats}`, 20, y + 10);
-                
+
                 // Save the PDF
                 doc.save(`Simulador_Eleitoral_${type.replace(' ', '_')}.pdf`);
             }
-            
+
             // Initialize the app
             loadCandidatesFromLocalStorage();
-            
+
             // Add event listeners for calculations
             document.querySelectorAll('.candidate-name, .candidate-votes').forEach(input => {
-                input.addEventListener('input', function() {
-                    const container = this.closest('.tab-content') ? this.closest('.tab-content').id : 
-                                    (document.querySelector('.tab-content.active').id);
+                input.addEventListener('input', function () {
+                    const container = this.closest('.tab-content') ? this.closest('.tab-content').id :
+                        (document.querySelector('.tab-content.active').id);
                     updateCalculations(container);
                 });
             });
         });
     </script>
 </body>
+
 </html>
